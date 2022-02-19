@@ -1,0 +1,37 @@
+<thead class="table-primary">
+    <tr>
+        <th id="cost-modal-header">
+            <button type="button" class="btn btn-info add-cost-btn" data-id="{{repair_id}}" data-tn="{{t_num}}" ><i class="fa fa-plus"></i>Add New</button>
+            <span class='btn btn-danger' id="displaymessage"></span>
+        </th>
+
+    </tr>
+</thead>
+<tbody>
+    <tr>
+        <td>
+            <div class = "costs">
+                <table class=" table expense-table">
+                    <tbody class="cost-body">
+                        {% for row in cost_list%}
+                        <tr>
+                            <td style="display:none;">{{ row.id }}</td>
+                            <td style="display:none;">{{ row.repair_id }}</td>
+                            <td style="display:none;">{{ t_num }}</td>
+                            <td>{{ row.cost_description }}</td>
+                            <td>{{ row.cost }}</td>
+                            <td><input class="paid_box" type="checkbox" value="{{ row.expense_status}}" name="paid_box" disabled="disabled"></td>
+                            <td>
+                                <a class="add-cost"><i class="fas fa-plus-square"></i></a>
+                                <a class="edit-cost"><i class="fas fa-pencil-alt"></i></a>
+                                <a class="delete-cost"><i class="fas fa-trash-alt" data-id="{{repair_id}}"></i></a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                 <button class="btn btn-primary" data-bs-target="#updateModal" data-bs-toggle="modal" data-bs-dismiss="modal">Back</button>
+            </div>
+        </td>
+    </tr>
+</tbody>

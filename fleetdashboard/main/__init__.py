@@ -1,0 +1,7 @@
+# This bluepint will deal with main app functionality
+
+from flask import Blueprint
+
+main = Blueprint('main', __name__, template_folder='templates')
+
+from . import views, main_forms

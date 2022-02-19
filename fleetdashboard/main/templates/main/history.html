@@ -1,0 +1,18 @@
+<table class="table">
+    <thead class="table-primary">
+        <tr>
+            <th>T-Number</th>
+            <th>Date</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for record in history %}
+        <tr>
+            <td>{{ record.T_Number  }}</td>
+            <td>{{ record.date_garage }}</td>
+            <td>{{ record.garage_reason }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

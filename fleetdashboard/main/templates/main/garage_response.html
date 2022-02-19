@@ -1,0 +1,38 @@
+<div class="modal-body-update">
+    <form method ="POST" class="update-form" id="garage-form" action="{{ url_for('main.garage') }}">
+        {{ form.csrf_token }}
+        <table class="table">
+
+            {{ form.page_name }}
+
+            <tr>
+                <td class="form-label">{{ form.T_Number.label}}</td>
+                <td>{{ form.T_Number}}</td>
+            </tr>
+            <tr>
+                <td class="form-label">{{ form.status.label}}</td>
+                <td>{{ form.status}}</td>
+            </tr>
+            <tr>
+                <td class="form-label">{{ form.date_garage.label}}</td>
+                <td>{{ form.date_garage}}</td>
+            </tr>
+            <tr>
+                <td class="form-label">{{ form.garage_reason.label}}</td>
+                <td>{{ form.garage_reason}}</td>
+            </tr>
+            <tr>
+                <td class="form-label">{{ form.estimated_repair_time.label}}</td>
+                <td>{{ form.estimated_repair_time}}</td>
+            </tr>
+            <tr>
+                <td class="form-label">Estimated Cost</td>
+                <td>{{ expense }}<span><a class="edit_cost" data-bs-toggle="modal" data-bs-target="#editcostModal" data-bs-dismiss="modal" data-id="{{form.repair_id.data}}" data-tn="{{form.T_Number.data}}"><span><i class="fas fa-plus-circle"></i></span></a></span></td>
+            </tr>
+
+        </table>
+        <div class="form-group  sub-btn">
+            <button type="submit" class="btn btn-primary" id="status-submit">Submit</button>
+        </div>
+    </form>
+</div>

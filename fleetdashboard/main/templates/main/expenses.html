@@ -1,0 +1,46 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+
+  <!-- Modal for editing cost breakdown-->
+    <div class="modal fade" id="editcostModal" tabindex="-1" aria-labelledby="editcostModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" id="edit-modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalHeader">Cost Breakdown</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-container-size">
+                        <table class="table" id="expense-table">
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  <table id="expense-table-main" class="table table-striped table-bordered" style="width:99%">
+    <thead>
+      <tr>
+          <th>T-Number</th>
+          <th>Description</th>
+          <th>Amount</th>
+          <th>Status</th>
+          <th>Repair_id</th>
+          <th>Edit</th>
+      </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+  </table>
+
+
+{% block scripts %}
+  <script>
+
+  </script>
+{% endblock %}
+
+{% endblock %}

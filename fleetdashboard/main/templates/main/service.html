@@ -1,0 +1,23 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+
+  <table id="service" class="table table-dark">
+    <thead>
+      <tr>
+        <th>T-Number</th>
+        <th>Odometer</th>
+        <th>Service Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for vehicle in service %}
+        <tr>
+          <td>{{ vehicle.T_Number }}</td>
+          <td>{{ vehicle.odometer }}</td>
+          <td>{{ vehicle.service_date }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

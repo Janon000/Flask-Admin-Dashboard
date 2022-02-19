@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="UTF-8">
+		<title>TELiCON Fleet Dashboard</title>
+		<!-- CSRF TOKEN -->
+		<meta name="csrf-token" content="{{ csrf_token() }}">
+		<!-- AJAX -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<!-- Google fonts roboto -->
+		<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+		<!-- Bootstrap CSS -->
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.css">
+		<!-- Custom CSS -->
+		<link href="{{ url_for('static', filename='/css/custom.css') }}" rel="stylesheet">
+		<!--Font Awesome icons -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<!--Chart js -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js" integrity="sha512-TW5s0IT/IppJtu76UbysrBH9Hy/5X41OTAbQuffZFU6lQ1rdcLHzpU5BzVvr/YFykoiMYZVWlr/PX1mDcfM9Qg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+	</head>
+	<body id="site">
+		<div class="page">
+			<div class="sidebar">
+				<div id="sidebar-header">
+					<h2>Fleet</h2>
+					<span class="side_btn"><button id="sidebarToggle" class="btn sidebarToggle" onclick="toggleCollapse();"><i class="fas fa-bars"></i></button></span>
+				</div>
+
+				<div class="sidebar-body">
+					<ul class="nav-list">
+						<li class="nav-list-item"><a href="{{ url_for('main.dashboard')}}">
+							<div class="icon-container"><i class="fas fa-home"></i></div>
+							<span class="nav-label">Dashboard</span></a>
+						</li>
+						<li class="nav-list-item"><a href="{{ url_for('main.garage')}}">
+							<div class="icon-container"><i class="fas fa-wrench"></i></div>
+							<span class="nav-label">Garage</span></a>
+						</li>
+						<li class="nav-list-item"><a href="{{ url_for('main.parked')}}">
+							<div class="icon-container"><i class="fas fa-parking"></i></div>
+							<span class="nav-label">Parked</span></a>
+						</li>
+						<li class="nav-list-item"><a href="{{ url_for('main.active')}}">
+							<div class="icon-container"><i class="fas fa-car"></i></div>
+							<span class="nav-label">Active</span></a>
+						</li>
+						<li class="nav-list-item"><a href="{{ url_for('main.details')}}">
+							<div class="icon-container"><i class="fas fa-sliders-h"></i></div>
+							<span class="nav-label">Vehicle Management</span></a>
+						</li>
+						<li class="nav-list-item"><a href="{{ url_for('main.expenses')}}">
+							<div class="icon-container"><i class="fas fa-money-bill-wave-alt"></i></div>
+							<span class="nav-label">Expenses</span></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="content">
+				<div class="navigationBar">
+					<ul class="navbar-items-list">
+						<li class="navbar-item">
+							<!--Notification dropdown-->
+							<div class="notif-container">
+								<a href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+									<div class="icon-container"><i class="fas fa-bell"></i></div>
+								</a>
+								<span class="badge rounded-circle bg-danger"></span>
+								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <li id="loader-container"><div class="loader"></div></li>
+                                </ul>
+							</div>
+						</li>
+						<li class="navbar-item"><a href="{{ url_for('auth.logout')}}">
+							<span class="nav-label">Logout</span></a>
+						</li>
+					</ul>
+				</div>
+				<div class="content-container">
+				{% block content %} {% endblock %}
+				</div>
+			</div>
+		</div>
+		<!--Bootsrap js-->
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+		<!--Datatables js-->
+		<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+		<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.js"></script>
+		<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.1.0/js/dataTables.buttons.min.js"></script>
+		<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/yadcf/0.9.4/jquery.dataTables.yadcf.min.js"></script>
+		<!--Moment Date manager-->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+		<script src="http://cdn.datatables.net/plug-ins/1.10.15/dataRender/datetime.js"></script>
+		<script src="https://cdn.datatables.net/plug-ins/1.10.21/sorting/datetime-moment.js"></script>
+		<!--Custom JS-->
+		<script src="{{ url_for('static', filename='/js/sidebar_collapse.js') }}"></script>
+		<script src="{{ url_for('static', filename='/js/status.js') }}"></script>
+		<script src="{{ url_for('static', filename='/js/expense.js') }}"></script>
+		<script src="{{ url_for('static', filename='/js/add_form_row.js') }}"></script>
+		<script src="{{ url_for('static', filename='/js/precheck_boxes.js') }}"></script>
+		<script src="{{ url_for('static', filename='/js/cost_actions.js') }}"></script>
+		<script src="{{ url_for('static', filename='/js/update_detail.js') }}"></script>
+		<script src="{{ url_for('static', filename='/js/datatables.js') }}"></script>
+		<script src="{{ url_for('static', filename='/js/notification.js') }}"></script>
+	</body>
+</html>

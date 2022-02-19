@@ -1,0 +1,37 @@
+<div class="modal-body-update">
+    <form method ="POST" class="update-form" id="active-form" action="{{ url_for('main.active') }}">
+        {{ form.csrf_token }}
+        <table class="table">
+            <!--hidden page name-->
+            <input type="hidden" id="page_name_hidden" value="">
+            <tr>
+                <td class="form-label">{{ form.T_Number.label}}</td>
+                <td>{{ form.T_Number}}</td>
+            </tr>
+            <tr>
+                <td class="form-label">{{ form.status.label}}</td>
+                <td>{{ form.status }}</td>
+            </tr>
+            <tr>
+                <td class="form-label">{{ form.date_active.label}}</td>
+                <td>{{ form.date_active}}</td>
+            </tr>
+            <tr>
+                <td class="form-label">{{ form.active_notes.label}}</td>
+                <td>{{ form.active_notes}}</td>
+            </tr>
+            <tr>
+                <td class="form-label">{{ form.estimated_repair_time.label}}</td>
+                <td>{{ form.estimated_repair_time}}</td>
+            </tr>
+            <tr>
+                <td class="form-label">Estimated Cost</td>
+                <td>{{ expense }}<span><a class="edit_cost" data-bs-toggle="modal" data-bs-target="#editcostModal" data-bs-dismiss="modal" data-id="{{form.repair_id.data}}" ><span><i class="fas fa-plus-circle"></i></span></a></span></td>
+            </tr>
+
+        </table>
+        <div class="form-group  sub-btn">
+            <button type="submit" class="btn btn-primary" id="status-submit">Submit</button>
+        </div>
+    </form>
+</div>

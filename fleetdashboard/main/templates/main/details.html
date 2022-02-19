@@ -1,0 +1,114 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+
+   <!-- Modal for new vehicle-->
+    <div class="modal fade" id="newvehicleModal" tabindex="-1" aria-labelledby="newvehicleModalLabel" aria-hidden="true">]
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newvehicleModalLabel">Add new vehicle</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body-new-vehicle">
+                    <div class="details_container">
+                        <form method ="POST" class="edit-form" id="edit-form">
+                            {{ form.csrf_token }}
+                            <table class=" table update_table">
+                            {% for field_row in form | batch(3, '&nbsp;') %}
+                                {% if loop.index < 7 %}
+                                    <tr class="detail-row">
+                                        {% for field in field_row %}
+                                            <td class="detail-td">
+                                                {{ field.label }}
+                                                {{ field }}
+                                                {% for error in field.errors %}
+                                                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                                        {{ error }}
+                                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                                    </div>
+                                                {% endfor %}
+                                            </td>
+                                        {% endfor %}
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                            </table>
+
+                            {% for field in form if field.widget.input_type != 'hidden' %}
+                                {% if loop.index == 19  %}
+                                    {{ field.label }}
+                                    {{ field }}
+                                        {% for error in field.errors %}
+                                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                                {{ error }}
+                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            </div>
+                                        {% endfor %}
+                                {% endif %}
+                             <!--date widgets-->
+                                {% if loop.index >= 20 and loop.index < 26 %}
+                                    {{ field.label }}
+                                    {{ field(class="date-form-fields", placeholder="") }}
+                                    {% for error in field.errors %}
+                                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                            {{ error }}
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                            {% endfor %}
+
+                            {{ form.insurance_company.label }}
+                            {{ form.insurance_company }}
+                            {% for error in form.insurance_company.errors %}
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                    {{ error }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endfor %}
+
+                            {{ form.gas_type.label }}
+                            {{ form.gas_type }}
+                            {% for error in form.gas_type.errors %}
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                    {{ error }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endfor %}
+
+                          <div class="form-group">
+                              <button type="submit" class="btn btn-primary" id="detail-submit" >Submit</button>
+                          </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  <table id="data" class="table table-striped table-bordered" style="width:100%">
+    <thead>
+      <tr>
+          <th>T-Number</th>
+          <th>Department</th>
+          <th>Driver</th>
+          <th>Ownership</th>
+          <th>Last Service Date</th>
+          <th>Registration</th>
+          <th>Fitness</th>
+          <th>Carrier</th>
+          <th>Insurance</th>
+          <th>Edit</th>
+      </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+  </table>
+
+{% block scripts %}
+
+{% endblock %}
+
+{% endblock %}

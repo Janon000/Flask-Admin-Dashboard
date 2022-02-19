@@ -1,0 +1,82 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+
+    <section class="py-5 dash-summary">
+		<div class="dash-facts-containter">
+			<div class="row" id="status-row">
+				<div class="col-sm dash-text" >
+					<div class="ms-5 me-1 dash-icon"><i class="fas fa-car"></i></div>
+					<div class="mx-2"><h3>Active</h3>
+					<p class="subtext">No of. Telicon:{{ telicon_active_count }} </p>
+					<p class="subtext">No of Own/3rd Party:{{ own_third_active }}</p>
+					<p>Total No. of Active: {{ active_count }}</p></div>
+              	</div>
+				<div class="col-sm dash-text">
+					<div class="ms-5 me-1 dash-icon"><i class="fas fa-wrench"></i></div>
+					<div><h3>Garage</h3>
+					<p class="subtext">No of. Telicon: {{ telicon_garage_count }}</p>
+					<p class="subtext">No of Own/3rd Party: {{ own_third_garage }}</p>
+					<p>Total No. of Garage: {{ garage_count }}</p></div>
+              	</div>
+				<div class="col-sm dash-text">
+					<div class="ms-5 me-1 dash-icon"><i class="fas fa-parking"></i></div>
+					<div><h3>Parked</h3>
+					<p class="subtext">No of. Telicon: {{ telicon_parked_count }}</p>
+					<p class="subtext">No of Own/3rd Party: {{ own_third_parked }}</p>
+					<p>Total No. of Parked: {{ parked_count }}</p></div>
+              	</div>
+            </div>
+		</div>
+	</section>
+
+	<!--Card for expenses chart-->
+    <div class="chart-card-container">
+        <div class="card card-style mb-4">
+            <div class="card-body">
+                <div class="chart-container" style="position: relative;">
+                    <canvas id="expense_chart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% block scripts %}
+<script>
+        let expense = JSON.parse({{ expense_over_time | tojson }})
+        let labels = JSON.parse({{ label_over_time | tojson }})
+
+        const data = {
+            labels: labels,
+            datasets: [{
+              label: 'Cost',
+              backgroundColor: '#CC0000',
+              borderColor: 'rgb(255, 99, 132)',
+              data: expense
+            }]
+        };
+
+        const config = {
+            type: 'bar',
+            data: data,
+            options: {
+                maxBarThickness: 30,
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                              display: true,
+                              text: 'Monthly Expenses'
+                    }
+                }
+            }
+        };
+
+        const myChart = new Chart(
+            document.getElementById('expense_chart'),
+            config
+        );
+    </script>
+{% endblock %}
+{% endblock %}
+
