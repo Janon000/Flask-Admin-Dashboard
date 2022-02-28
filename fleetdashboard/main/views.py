@@ -117,6 +117,7 @@ def details():
                                   color=request.form['color'],
                                   chasis_number=request.form['chasis_number'],
                                   engine_number=request.form['engine_number'],
+                                  service_date=datetime.strptime(request.form['service_date'], "%Y-%m-%d").date(),
                                   registration_exp=datetime.strptime(request.form['registration_exp'],
                                                                      "%Y-%m-%d").date(),
                                   fitness_exp=datetime.strptime(request.form['fitness_exp'], "%Y-%m-%d").date(),
@@ -147,7 +148,7 @@ def details():
         except Exception as e:
             print(e)
 
-        return redirect(url_for('details'))
+        return redirect(url_for('main.details'))
 
     return render_template("main/details.html", vehicles=vehicles, form=form, today=today)
 
@@ -214,7 +215,7 @@ def update_details(T_Number):
         try:
             form.populate_obj(vehicle)
             db.session.commit()
-            return redirect(url_for('details'))
+            return redirect(url_for('main.details'))
 
         except Exception as e:
             flash(e, "danger")

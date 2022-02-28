@@ -7,7 +7,7 @@ $(document).ready(function () {
 
         $.ajax(Url)
             .done(function(data) {
-            window.location.href =Url;
+            window.location.href=Url;
         })
      });
 });
